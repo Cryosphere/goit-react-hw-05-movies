@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 export const Movies = ({ movies }) => {
   const location = useLocation();
-
   if (!movies) {
     return <Loader />;
   }
@@ -25,8 +24,10 @@ export const Movies = ({ movies }) => {
 };
 
 Movies.propTypes = {
-  movies: PropTypes.arrayOf({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-  }),
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+    })
+  ),
 };

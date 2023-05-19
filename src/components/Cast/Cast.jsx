@@ -1,13 +1,11 @@
 import { useCast } from 'hooks/useCast';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Container, Span } from './cast.styled';
 import { Loader } from 'components/Loader/Loader';
 
 const Cast = () => {
   const { movieId } = useParams();
   const { actors } = useCast(movieId);
-  const location = useLocation();
-  console.log(location.state);
 
   if (!actors) return <Loader />;
 

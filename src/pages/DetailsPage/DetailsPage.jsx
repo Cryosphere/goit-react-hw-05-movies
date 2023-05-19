@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { Suspense } from 'react';
+import { Suspense, useRef } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { useMovieDetails } from 'hooks/useMovieDetails';
 import { BackLink } from 'components/BackLink/BackLink';
@@ -11,9 +11,7 @@ const DetailsPage = () => {
   const { movieId } = useParams();
   const { movie } = useMovieDetails(movieId);
   const location = useLocation();
-
-  const backLinkHref = location.state?.from ?? '/movies';
-  console.log(backLinkHref);
+  const backLinkHref = useRef(location.state?.from || '/');
 
   if (!movie) {
     return <Loader />;
@@ -21,7 +19,7 @@ const DetailsPage = () => {
 
   return (
     <div>
-      <BackLink to={backLinkHref}>Back to the movies list</BackLink>
+      <BackLink to={backLinkHref.current}>Back to the movies list</BackLink>
       <Container>
         <img
           src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
@@ -42,9 +40,7 @@ const DetailsPage = () => {
       <h3>More information</h3>
       <ul>
         <li>
-          <StyledLink to={{ pathname: 'cast', state: { from: location } }}>
-            Cast
-          </StyledLink>
+          <StyledLink to="cast">Cast</StyledLink>
         </li>
         <li>
           <StyledLink to="reviews">Reviews</StyledLink>

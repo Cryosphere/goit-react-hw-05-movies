@@ -13,6 +13,7 @@ const DetailsPage = () => {
   const location = useLocation();
 
   const backLinkHref = location.state?.from ?? '/movies';
+  console.log(backLinkHref);
 
   if (!movie) {
     return <Loader />;
@@ -41,7 +42,9 @@ const DetailsPage = () => {
       <h3>More information</h3>
       <ul>
         <li>
-          <StyledLink to="cast">Cast</StyledLink>
+          <StyledLink to={{ pathname: 'cast', state: { from: location } }}>
+            Cast
+          </StyledLink>
         </li>
         <li>
           <StyledLink to="reviews">Reviews</StyledLink>

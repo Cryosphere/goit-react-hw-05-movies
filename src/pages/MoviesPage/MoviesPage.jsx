@@ -4,25 +4,25 @@ import { useQuery } from 'hooks/useQuery';
 import { useSearchParams } from 'react-router-dom';
 
 const MoviesPage = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const query = searchParams.get('query') ?? '';
-    const { movies } = useQuery(query);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('query') ?? '';
+  const { movies } = useQuery(query);
+  const updateQuery = query => {
+    const nextParams = query !== '' ? { query } : {};
+    setSearchParams(nextParams);
+  };
 
-    const updateQuery = query => {
-        const nextParams = query !== '' ? { query } : {};
-        setSearchParams(nextParams);
-    };
+  //   const moviesList = movies.filter(movie =>
+  //     movie.title.toLowerCase().includes(query.toLowerCase())
+  //   );
+  //   console.log(moviesList);
 
-    const moviesList = movies.filter(movie =>
-        movie.title.toLowerCase().includes(query.toLowerCase())
-    );
-
-    return (
-        <div>
-            <Searchbox value={query} onChange={updateQuery} />
-            <Movies movies={moviesList} />
-        </div>
-    );
+  return (
+    <div>
+      <Searchbox value={query} onChange={updateQuery} />
+      <Movies movies={movies} />
+    </div>
+  );
 };
 
 export default MoviesPage;
